@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +39,11 @@ public class AccountsController {
 		
 		return ResponseEntity.ok().body(found.get());	
 	}
-	@PostMapping("/account/update")
+	@PutMapping("/account/update")
 	public ResponseEntity<?> updateAccount(@RequestBody Accounts acc){
-		if(acc.getUser_id()!=null) {
+		Integer userID = acc.getUser_id();
+		Accounts acc0 = repo.findAccountById(userID);
+		if(acc0.getBalance() !=null) {
 			repo.save(acc);
 			return ResponseEntity.ok().body("Record updated" + acc);
 		}
@@ -48,6 +51,20 @@ public class AccountsController {
 			return ResponseEntity.status(401).body("Account Record not Found");
 		}
 	}
+	@PostMapping("/account/create")
+	public ResponseEntity<?> createAccount(@RequestBody Accounts acc){
+		Integer userID = acc.getUser_id();
+		Accounts acc0 = repo.findAccountById(userID);
+		if(acc0.getBalance() != null) {
+			return ResponseEntity.status(401).body("Account already exists");
+		}
+		else {
+			repo.save(acc);
+			return ResponseEntity.ok().body("Record created: "+acc);
+		}
+	}
+	
+	
 }
 	
 
