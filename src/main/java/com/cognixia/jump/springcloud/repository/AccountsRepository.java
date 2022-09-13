@@ -8,7 +8,7 @@ import com.cognixia.jump.springcloud.model.Accounts;
 
 @Repository
 public interface AccountsRepository extends JpaRepository<Accounts, Integer>{
-	@Query("select a from accounts a where a.car_id = ?1")
+	@Query("select a from Accounts a where a.user_id = ?1")
 	Accounts findAccountById(Integer Id);
 
 }
