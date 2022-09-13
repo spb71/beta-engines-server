@@ -28,6 +28,9 @@ public class Accounts implements Serializable{
 	@Column
 	private Double balance;
 	
+	@Column( columnDefinition = "boolean default true" )
+	private boolean enabled;
+	
 	public Accounts() {
 		this.user_id = -1;
 		this.username = "N/A";
@@ -83,6 +86,14 @@ public class Accounts implements Serializable{
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override

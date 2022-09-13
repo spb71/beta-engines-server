@@ -3,78 +3,42 @@ package com.cognixia.jump.springcloud.service;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.cognixia.jump.springcloud.service.MyAccountDetails;
 import com.cognixia.jump.springcloud.model.Accounts;
+import com.cognixia.jump.springcloud.repository.AccountsRepository;
 
-public class MyAccountDetailsService implements UserDetails {
+public class MyAccountDetailsService implements UserDetailsService {
+	
+	@Autowired
+	AccountsRepository repo;
 
-	
-
-	private static final long serialVersionUID = 1L;
-	
-	private String username;
-	private String password;
-	private boolean enabled;
-	private List<GrantedAuthority> authorities;
-	
-	
-	// when a new object created, will extract only the RELEVANT info from our User object
-	public MyUserDetails(Accounts account) {
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		this.username = account.getUsername();
-		this.password = account.getPassword();
-		this.enabled = account.isEnabled();
+		Optional<Accounts> userFound = repo.findByUsername(username);
 		
-		// Granted Authority -> permissions/grants a user has access to retrieve or operations to perform
-		// GA is given based on the user's roles
-		this.authorities = Arrays.asList( new SimpleGrantedAuthority( account.getRole().name() ) );
+		
+		if(userFound.isEmpty()) {
+			throw new UsernameNotFoundException(username);
+		}
+		
+		// as long as we found the user, create a user details object with all the relevant info for security 
+		// security will take this object and perform authorization & authentication
+		return new MyAccountDetails( userFound.get() );
 	}
+	}
+
 	
+	// method will by called by Spring Security when a request comes in
+	// credentials (username + password) passed through the request will be loaded in
+	// username will be passed to this method (as an argument), then will call the UserRepository in order to find a user with that username
+	// As long as this user is found, User info will be passed to a UserDetails object and returned
+		
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return authorities;
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-}
