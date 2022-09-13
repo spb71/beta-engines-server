@@ -23,7 +23,13 @@ public class Accounts implements Serializable{
 	private String password;
 	
 	@Column
-	private String name;
+	private String first_name;
+	
+	@Column
+	private String last_name;
+	
+	@Column
+	private String email;
 	
 	@Column
 	private Double balance;
@@ -35,16 +41,21 @@ public class Accounts implements Serializable{
 		this.user_id = -1;
 		this.username = "N/A";
 		this.password = "N/A";
-		this.name = "N/A";
+		this.first_name = "N/A";
+		this.last_name = "N/A";
+		this.email = "N/A";
 		this.balance = 0.0;
 	}
 
-	public Accounts(Integer user_id, String username, String password, String name, Double balance) {
+	public Accounts(Integer user_id, String username, String password, String first_name, String last_name,
+			String email, Double balance) {
 		super();
 		this.user_id = user_id;
 		this.username = username;
 		this.password = password;
-		this.name = name;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
 		this.balance = balance;
 	}
 
@@ -72,12 +83,28 @@ public class Accounts implements Serializable{
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Double getBalance() {
@@ -98,12 +125,9 @@ public class Accounts implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Accounts [user_id=" + user_id + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", balance=" + balance + "]";
+		return "Accounts [user_id=" + user_id + ", username=" + username + ", password=" + password + ", first_name="
+				+ first_name + ", last_name=" + last_name + ", email=" + email + ", balance=" + balance + "]";
 	}
+
 	
-	
-	
-	
-	
-}
+	}
