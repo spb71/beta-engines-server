@@ -50,6 +50,13 @@ public class CarController {
 		System.out.println("added a new car" + added);
 	}
 	
+	
+	
+//	@PostMapping("/cars/add2")
+	
+	
+	
+	
 	@CrossOrigin
 	@PutMapping("/cars/update")
 	public @ResponseBody String updateCar(@RequestBody Cars updateCar) {
