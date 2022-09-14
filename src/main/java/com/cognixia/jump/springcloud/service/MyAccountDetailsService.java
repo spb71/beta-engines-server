@@ -1,19 +1,17 @@
 package com.cognixia.jump.springcloud.service;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import com.cognixia.jump.springcloud.service.MyAccountDetails;
 import com.cognixia.jump.springcloud.model.Accounts;
 import com.cognixia.jump.springcloud.repository.AccountsRepository;
 
+@Service
 public class MyAccountDetailsService implements UserDetailsService {
 	
 	@Autowired

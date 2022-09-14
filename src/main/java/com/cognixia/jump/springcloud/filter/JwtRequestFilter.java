@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.cognixia.jump.springcloud.service.MyAccountDetails;
+import com.cognixia.jump.springcloud.service.MyAccountDetailsService;
 import com.cognixia.jump.springcloud.util.JwtUtil;
 
 
@@ -31,7 +32,7 @@ import com.cognixia.jump.springcloud.util.JwtUtil;
 public class JwtRequestFilter extends OncePerRequestFilter { // abstract class that makes sure an action performed once when filter is called
 
 	@Autowired
-	private MyAccountDetails accountDetailsService;
+	private MyAccountDetailsService accountDetailsService;
 
 	
 	@Autowired
