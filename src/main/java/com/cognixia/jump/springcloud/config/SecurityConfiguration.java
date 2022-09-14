@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.cognixia.jump.springcloud.filter.JwtRequestFilter;
+
 
 @Configuration
 public class SecurityConfiguration {
@@ -22,8 +24,8 @@ public class SecurityConfiguration {
 	@Autowired
 	UserDetailsService userDetailsService;
 	
-	//@Autowired
-	//JwtRequestFilter jwtRequestFilter;
+	@Autowired
+	JwtRequestFilter jwtRequestFilter;
 	
 	// Authentication - who are you?
 	@Bean
@@ -37,10 +39,8 @@ public class SecurityConfiguration {
 	protected SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
 		
 		http.csrf().disable()
-			.authorizeRequests()
-			.antMatchers("/api/hello").hasRole("USER")// have to be user role to access /hello
-			.antMatchers("/authenticate").permitAll() // allows anyone to create token
-			.anyRequest().authenticated() // any other API in this project has to be authenticated (token or user info to access)
+			.authorizeRequests() 
+			.anyRequest().permitAll()
 			.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		

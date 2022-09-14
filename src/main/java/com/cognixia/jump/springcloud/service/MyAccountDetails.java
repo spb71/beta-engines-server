@@ -20,7 +20,7 @@ public class MyAccountDetails implements UserDetails{
 	private String username;
 	private String password;
 	private boolean enabled;
-	//private List<GrantedAuthority> authorities;
+	private List<GrantedAuthority> authorities;
 	
 	public MyAccountDetails(Accounts account) {
 		
@@ -33,10 +33,10 @@ public class MyAccountDetails implements UserDetails{
 		//Do not need  right now ? maybe ask toju about it
 		//this.authorities = Arrays.asList( new SimpleGrantedAuthority( Accounts.getRole().name() ) );
 	}
-	//@Override
-	//public Collection<? extends GrantedAuthority> getAuthorities() {
-		//return authorities;
-	//}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
 
 	@Override
 	public String getPassword() {
@@ -80,10 +80,5 @@ public class MyAccountDetails implements UserDetails{
 		return null;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
