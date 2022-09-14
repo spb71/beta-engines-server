@@ -31,7 +31,7 @@ public class Cars implements Serializable {
 	private String vehicle_type;
 	
 	@Column
-	private String vehicle_year;
+	private Integer vehicle_year;
 	
 	@Column
 	private String vin;
@@ -49,14 +49,14 @@ public class Cars implements Serializable {
 		this.color = "N/A";
 		this.trim_level = "N/A";
 		this.vehicle_type = "N/A";
-		this.vehicle_year = "N/A";
+		this.vehicle_year = 0;
 		this.vin = "N/A";
 		this.mileage = 0;
 		this.price = 0.0;
 	}
 
 	public Cars(Long car_id, String make, String model, String color, String trim_level, String vehicle_type,
-			String vehicle_year, String vin, Integer mileage, Double price) {
+			Integer vehicle_year, String vin, Integer mileage, Double price) {
 		super();
 		this.car_id = car_id;
 		this.make = make;
@@ -118,11 +118,11 @@ public class Cars implements Serializable {
 		this.vehicle_type = vehicle_type;
 	}
 
-	public String getVehicle_year() {
+	public Integer getVehicle_year() {
 		return vehicle_year;
 	}
 
-	public void setVehicle_year(String vehicle_year) {
+	public void setVehicle_year(Integer vehicle_year) {
 		this.vehicle_year = vehicle_year;
 	}
 
