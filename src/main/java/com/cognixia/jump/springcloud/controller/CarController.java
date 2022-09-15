@@ -43,15 +43,22 @@ public class CarController {
 	}
 	
 	@CrossOrigin
-	@PostMapping("/add/cars")
+	@PostMapping("/cars/add")
 	public void addCar(@RequestBody Cars newCar) {
 		newCar.setCar_id(-1L);
 		Cars added = service.save(newCar);
 		System.out.println("added a new car" + added);
 	}
 	
+	
+	
+//	@PostMapping("/cars/add2")
+	
+	
+	
+	
 	@CrossOrigin
-	@PutMapping("/update/cars")
+	@PutMapping("/cars/update")
 	public @ResponseBody String updateCar(@RequestBody Cars updateCar) {
 		Optional<Cars> found = service.findById(updateCar.getCar_id());
 		if (found.isPresent()) {
@@ -61,7 +68,7 @@ public class CarController {
 		else return "Could not update car, maybe the id doesn't exist?";
 	}
 	@CrossOrigin
-	@DeleteMapping("/delete/cars/{car_id}")
+	@DeleteMapping("/cars/delete/{car_id}")
 	public ResponseEntity<String> deleteCar(@PathVariable long car_id) {
 		Optional<Cars> found = service.findById(car_id);
 		if(found.isPresent()) {
