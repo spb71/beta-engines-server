@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognixia.jump.springcloud.model.AuthenticationResponse;
-import com.cognixia.jump.springcloud.model.AuthenticationRequest;
 import com.cognixia.jump.springcloud.model.Accounts;
+import com.cognixia.jump.springcloud.model.AuthenticationRequest;
+import com.cognixia.jump.springcloud.model.AuthenticationResponse;
 import com.cognixia.jump.springcloud.repository.AccountsRepository;
 import com.cognixia.jump.springcloud.util.JwtUtil;
 
@@ -79,13 +79,15 @@ public class AccountsController {
 	public ResponseEntity<?> createAccount(@RequestBody Accounts acc){
 		Integer userID = acc.getUser_id();
 		Accounts acc0 = repo.findAccountById(userID);
-		if(acc0.getBalance() != null) {
-			return ResponseEntity.status(401).body("Account already exists");
-		}
-		else {
-			repo.save(acc);
-			return ResponseEntity.ok().body("Record created: "+acc);
-		}
+//		if(acc0.getBalance() != null) {
+//			return ResponseEntity.status(401).body("Account already exists");
+//		}
+//		else {
+//			repo.save(acc);
+//			return ResponseEntity.ok().body("Record created: "+acc);
+//		}
+		repo.save(acc);
+		return ResponseEntity.ok().body("Record created: "  + acc);
 	}
 	@DeleteMapping("/account/delete/{id}")
 	public ResponseEntity<?> deleteAccount(@PathVariable Integer Id){
